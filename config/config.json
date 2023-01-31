@@ -1,0 +1,71 @@
+{
+    "artifact": {
+        "lesser": 0.2,
+        "greater": 1,
+        "grand": 7,
+        "exceptional": 12
+    },
+    "currency": {
+        "ancient_orb": 16.0,
+        "divine": 250.0,
+        "polished_expedition_scarab": 2.0,
+        "gemcutter": 1.75,
+        "scouring": 0.66,
+        "alchemy": 0.1,
+        "blessed": 0.4,
+        "contract": 0.5,
+        "jeweller": 0.06,
+        "fusing": 0.2,
+        "chaos": 1.0,
+        "hypnotic": 3.0,
+        "vaal": 1.3,
+        "chromatic": 0.16,
+        "regret": 0.83,
+        "stacked_deck": 2.7,
+        "alteration": 0.1,
+        "regal": 0.97,
+        "ghastly": 3.0,
+        "chisel": 0.33,
+        "glassblower": 0.36,
+        "dense_fossil": 2.0,
+        "sextant": 4.0
+    },
+    "positions": {
+        "haggle_board": [
+            629,
+            259,
+            163,
+            585
+        ],
+        "haggle_buy": [
+            750,
+            640,
+            400,
+            250
+        ],
+        "artifact_board": [
+            888,
+            630,
+            120,
+            120
+        ],
+        "confirm_board": [
+            840,
+            840,
+            220,
+            50
+        ],
+        "currency_inside_haggle": [
+            917,
+            376,
+            19,
+            15
+        ],
+        "first_inventory_slot": [
+            1913,
+            607,
+            47,
+            30
+        ]
+    }
+}
