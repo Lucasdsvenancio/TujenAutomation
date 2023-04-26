@@ -5,10 +5,13 @@ from win32con import *
 import pytesseract as tess
 from PIL import Image
 import keyboard
+import requests
 
 tess.pytesseract.tesseract_cmd = r"C:\Users\Lucas\AppData\Local\Programs\Tesseract-OCR\tesseract"
 
 haggle = {}
+ninja_values = {}
+league = 'Crucible'
 
 def load_config():
     #Loads all images
@@ -89,7 +92,7 @@ def reroll():
 
 def find_currency(name, image, template, hits):
     h, w = template.shape[:2]
-    thresh = 0.93
+    thresh = 0.95
 
     img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     temp_gray = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
@@ -148,6 +151,7 @@ def get_amount():
 
     img = Image.open(amount_path)
     value = tess.image_to_string(img, config='--psm 6')
+    
     if value == '':
         return 1
     return int(re.sub("[^0-9]", "", value))
@@ -198,26 +202,66 @@ def append_worth(entry):
 
 def register():
     currency_name = input('Enter currency name in first inventory slot (top, left):')
-    currency_in_inventory = pyautogui.screenshot(f'./images/currency/{currency_name}.png', region=haggle['config']['positions']['first_inventory_slot'])
-    value = float(input('Enter the value of the currency:'))
+    pyautogui.screenshot(f'./images/currency/{currency_name}.png', region=haggle['config']['positions']['first_inventory_slot'])
+
+    value = 0
+    for k, v in ninja_values.items():
+        if currency_name in v:
+            value = v[currency_name]
+    
     print(append_worth({f"{currency_name}":value}))
-    cont = int(input('Wish to continue? 1 for yes\n'))
+        
+    cont = int(input('1 - Continuar\n0 - Sair\n'))
     if cont == 1:
         os.system('cls')
         register()
 
+def get_currencies():
+    poe_ninja = f'https://poe.ninja/api/data/currencyoverview?league={league}&type=Currency'
+    currency_json = requests.get(poe_ninja).json()['lines']
+    currency_json = {x['detailsId']:x['chaosEquivalent'] for x in currency_json}
+    # test = json.dumps(currency_json, indent=4)
+    # with open('currencies.json', 'w') as out:
+    #     out.write(test)
+    return currency_json
+
+def get_fossils():
+    poe_ninja = f'https://poe.ninja/api/data/itemoverview?league={league}&type=Fossil'
+    fossil_json = requests.get(poe_ninja).json()['lines']
+    fossil_json = {x['detailsId']:x['chaosValue'] for x in fossil_json}
+    # test = json.dumps(fossil_json, indent=4)
+    # with open('fossils.json', 'w') as out:
+    #     out.write(test)
+    return fossil_json
+
+def refresh_prices():
+    for name, _ in haggle['config']['currency'].items():
+        if name != 'chaos-orb':
+            if 'fossil' in name:
+                haggle['config']['currency'][name] = ninja_values['Fossil'][name]
+            else:
+                haggle['config']['currency'][name] = ninja_values['Currency'][name]
+
 if "__main__" == __name__:  
     if not os.path.exists('./images/temp'):
         os.makedirs('./images/temp')
+
+    ninja_values['Currency'] = get_currencies()
+    ninja_values['Fossil'] = get_fossils()
+
     print("Welcome to Tujen Auto Buyer!")
     print("To start either input 0 to add a currency and its value or the number of coins you have")
     mode = int(input("Choose mode:")) 
+
     load_config()
+
+    refresh_prices()
         
     if mode == 0:
         register()
     else:
+        
         coinages = mode
         run(coinages)
     
-    # shutil.rmtree('./images/temp', ignore_errors=True)
+    shutil.rmtree('./images/temp', ignore_errors=True)
