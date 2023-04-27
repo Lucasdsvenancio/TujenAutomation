@@ -7,29 +7,35 @@
     },
     "currency": {
         "orb-of-alteration": 0.08,
-        "vaal-orb": 0.41,
-        "chaos-orb": 1.25,
+        "vaal-orb": 0.42,
+        "chaos-orb": 1.2,
         "orb-of-alchemy": 0.06,
         "orb-of-binding": 0.06,
         "blessed-orb": 0.47,
         "stacked-deck": 2.0,
-        "divine-orb": 215.03,
+        "divine-orb": 217.75,
         "chromatic-orb": 0.11,
-        "orb-of-scouring": 0.61,
-        "dense-fossil": 0.92,
+        "orb-of-scouring": 0.62,
+        "dense-fossil": 0.98,
         "cartographers-chisel": 0.22,
         "jewellers-orb": 0.06,
         "awakened-sextant": 5.0,
         "regal-orb": 0.67,
-        "exalted-orb": 14.25,
-        "orb-of-fusing": 0.24,
+        "exalted-orb": 13.98,
+        "orb-of-fusing": 0.23,
         "gemcutters-prism": 0.63,
         "orb-of-regret": 0.45,
+<<<<<<< HEAD
         "perfect-fossil": 5.66,
         "searching-eye-jewel": 5,
         "murdering-eye-jewel": 5,
         "hypnotic-eye-jewel": 5,
         "shuddering-fossil": 5.0,
+=======
+        "perfect-fossil": 5.72,
+        "searching-eye-jewel": 5,
+        "hypnotic-eye-jewel": 5,
+>>>>>>> 758debb1762547046983e5b08896a9c010cc7eee
         "ghastly-eye-jewel": 5
     },
     "positions": {
@@ -64,10 +70,10 @@
             15
         ],
         "first_inventory_slot": [
-            1913,
-            607,
-            47,
-            30
+            1920,
+            612,
+            35,
+            20
         ]
     }
 }

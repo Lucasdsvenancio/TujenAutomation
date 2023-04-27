@@ -92,10 +92,15 @@ def reroll():
 
 def find_currency(name, image, template, hits):
     h, w = template.shape[:2]
+<<<<<<< HEAD
     thresh = 0.95
     if 'fossil' in name:
         thresh = 0.98
     
+=======
+    thresh = 0.975
+
+>>>>>>> 758debb1762547046983e5b08896a9c010cc7eee
     img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     temp_gray = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
 
@@ -103,13 +108,15 @@ def find_currency(name, image, template, hits):
     res = cv2.matchTemplate(image=img_gray, templ=temp_gray, method=cv2.TM_CCORR_NORMED)
     loc = np.where(res >= thresh)
 
-    tree_count = 0
     mask = np.zeros(image.shape[:2], np.uint8)
     for pt in zip(*loc[::-1]):
         if mask[pt[1] + int(round(h/2)), pt[0] + int(round(w/2))] != 255:
-            mask[pt[1]:pt[1]+h, pt[0]:pt[0]+w] = 255
+            # mask[pt[1]:pt[1]+h, pt[0]:pt[0]+w] = 255
             hits[name].append((pt[0] + (w//2), pt[1] + (h//2)))
-            cv2.rectangle(image, pt, (pt[0] + w, pt[1] + h), (0,255,0), 1)
+            # cv2.rectangle(image, pt, (pt[0] + w, pt[1] + h), (0,255,0), 1)
+    # cv2.imshow('res',image)
+    # cv2.waitKey(0)
+
 
 def find_artifact():
     image = cv2.imread('./images/temp/haggle_buy.png')
@@ -133,7 +140,7 @@ def match_artifact(image, template):
     return False
 
 def get_amount():
-    sleep(0.1)
+    sleep(0.05)
     amount_path = './images/temp/currency_amount.png'
     pyautogui.screenshot(amount_path, region=haggle['config']['positions']['currency_inside_haggle'])
 
@@ -152,15 +159,16 @@ def get_amount():
     cv2.imwrite(amount_path, res)
 
     img = Image.open(amount_path)
-    value = tess.image_to_string(img, config='--psm 6')
     
+    value = tess.image_to_string(img, config='--psm 6')
+
     if value == '':
         return 1
     return int(re.sub("[^0-9]", "", value))
             
 def run(coinages):
     haggle_board = haggle['config']['positions']['haggle_board']
-    reroll_value = 3
+    reroll_value = 5
     
     net_profit = 0
     while coinages >= 1:
@@ -184,15 +192,24 @@ def run(coinages):
                     net_profit += start_haggle(currency, real_pos)
         coinages -= 1
         if coinages >= 1:
+<<<<<<< HEAD
             net_profit -= reroll_value
+=======
+>>>>>>> 758debb1762547046983e5b08896a9c010cc7eee
             reroll()
             # print("Press Q to reroll")
             # while True:
             #     if keyboard.is_pressed('q'):
             #         reroll()
+<<<<<<< HEAD
             #         net_profit -= reroll_value
             #         break                
     print(f"Total gained = {net_profit}c")
+=======
+            net_profit -= reroll_value
+            #         break                
+    print(f"Total gained = {round(net_profit, 2)}c")
+>>>>>>> 758debb1762547046983e5b08896a9c010cc7eee
 
 def append_worth(entry):
     with open('./config/config.json') as file:
@@ -215,7 +232,10 @@ def register():
     if value == 0:
         value = input('Item não encontrado no poe.ninja - Digite o valor')
     print(append_worth({f"{currency_name}":value}))
+<<<<<<< HEAD
     
+=======
+>>>>>>> 758debb1762547046983e5b08896a9c010cc7eee
     register()
 
 def get_currencies():
