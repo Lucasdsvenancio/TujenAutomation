@@ -92,15 +92,10 @@ def reroll():
 
 def find_currency(name, image, template, hits):
     h, w = template.shape[:2]
-<<<<<<< HEAD
     thresh = 0.95
     if 'fossil' in name:
         thresh = 0.98
     
-=======
-    thresh = 0.975
-
->>>>>>> 758debb1762547046983e5b08896a9c010cc7eee
     img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     temp_gray = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
 
@@ -192,24 +187,15 @@ def run(coinages):
                     net_profit += start_haggle(currency, real_pos)
         coinages -= 1
         if coinages >= 1:
-<<<<<<< HEAD
             net_profit -= reroll_value
-=======
->>>>>>> 758debb1762547046983e5b08896a9c010cc7eee
             reroll()
             # print("Press Q to reroll")
             # while True:
             #     if keyboard.is_pressed('q'):
             #         reroll()
-<<<<<<< HEAD
             #         net_profit -= reroll_value
             #         break                
     print(f"Total gained = {net_profit}c")
-=======
-            net_profit -= reroll_value
-            #         break                
-    print(f"Total gained = {round(net_profit, 2)}c")
->>>>>>> 758debb1762547046983e5b08896a9c010cc7eee
 
 def append_worth(entry):
     with open('./config/config.json') as file:
@@ -232,10 +218,7 @@ def register():
     if value == 0:
         value = input('Item não encontrado no poe.ninja - Digite o valor')
     print(append_worth({f"{currency_name}":value}))
-<<<<<<< HEAD
     
-=======
->>>>>>> 758debb1762547046983e5b08896a9c010cc7eee
     register()
 
 def get_currencies():

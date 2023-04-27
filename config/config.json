@@ -25,17 +25,11 @@
         "orb-of-fusing": 0.23,
         "gemcutters-prism": 0.63,
         "orb-of-regret": 0.45,
-<<<<<<< HEAD
         "perfect-fossil": 5.66,
         "searching-eye-jewel": 5,
         "murdering-eye-jewel": 5,
         "hypnotic-eye-jewel": 5,
         "shuddering-fossil": 5.0,
-=======
-        "perfect-fossil": 5.72,
-        "searching-eye-jewel": 5,
-        "hypnotic-eye-jewel": 5,
->>>>>>> 758debb1762547046983e5b08896a9c010cc7eee
         "ghastly-eye-jewel": 5
     },
     "positions": {
