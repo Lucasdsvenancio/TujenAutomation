@@ -25,7 +25,12 @@
         "orb-of-fusing": 0.24,
         "gemcutters-prism": 0.63,
         "orb-of-regret": 0.45,
-        "perfect-fossil": 5.66
+        "perfect-fossil": 5.66,
+        "searching-eye-jewel": 5,
+        "murdering-eye-jewel": 5,
+        "hypnotic-eye-jewel": 5,
+        "shuddering-fossil": 5.0,
+        "ghastly-eye-jewel": 5
     },
     "positions": {
         "haggle_board": [

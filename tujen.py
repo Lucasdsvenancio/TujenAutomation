@@ -93,7 +93,9 @@ def reroll():
 def find_currency(name, image, template, hits):
     h, w = template.shape[:2]
     thresh = 0.95
-
+    if 'fossil' in name:
+        thresh = 0.98
+    
     img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     temp_gray = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
 
@@ -182,12 +184,14 @@ def run(coinages):
                     net_profit += start_haggle(currency, real_pos)
         coinages -= 1
         if coinages >= 1:
-            print("Press Q to reroll")
-            while True:
-                if keyboard.is_pressed('q'):
-                    reroll()
-                    net_profit -= reroll_value
-                    break                
+            net_profit -= reroll_value
+            reroll()
+            # print("Press Q to reroll")
+            # while True:
+            #     if keyboard.is_pressed('q'):
+            #         reroll()
+            #         net_profit -= reroll_value
+            #         break                
     print(f"Total gained = {net_profit}c")
 
 def append_worth(entry):
@@ -201,20 +205,18 @@ def append_worth(entry):
     return 'Done'
 
 def register():
-    currency_name = input('Enter currency name in first inventory slot (top, left):')
+    currency_name = input('Digite o nome da currency no primeiro slot do inventário(top, left):')
     pyautogui.screenshot(f'./images/currency/{currency_name}.png', region=haggle['config']['positions']['first_inventory_slot'])
 
     value = 0
     for k, v in ninja_values.items():
         if currency_name in v:
             value = v[currency_name]
-    
+    if value == 0:
+        value = input('Item não encontrado no poe.ninja - Digite o valor')
     print(append_worth({f"{currency_name}":value}))
-        
-    cont = int(input('1 - Continuar\n0 - Sair\n'))
-    if cont == 1:
-        os.system('cls')
-        register()
+    
+    register()
 
 def get_currencies():
     poe_ninja = f'https://poe.ninja/api/data/currencyoverview?league={league}&type=Currency'
@@ -236,7 +238,7 @@ def get_fossils():
 
 def refresh_prices():
     for name, _ in haggle['config']['currency'].items():
-        if name != 'chaos-orb':
+        if name != 'chaos-orb' and 'jewel' not in name:
             if 'fossil' in name:
                 haggle['config']['currency'][name] = ninja_values['Fossil'][name]
             else:
